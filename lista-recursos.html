@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Recursos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        nav {
+            background-color: #f1f1f1;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        #recurso {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .recurso-item {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .recurso-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="lista-usuarios.html">Lista de usuarios</a>
+        <a href="detalle-usuario.html">Detalle de usuario</a>
+        <a href="crear-usuario.html">Crear usuario</a>
+        <a href="lista-recursos.html">Lista de recursos</a>
+        <a href="usuario-aleatorio.html">Usuario aleatorio</a>
+    </nav>
+
+    <h2>Lista de Recursos</h2>
+    <div id="recurso">
+        Cargando recursos...
+    </div>
+
+    <script>
+        fetch('https://reqres.in/api/unknown', {
+            method: 'GET',
+            headers: {
+                'x-api-key': 'reqres-free-v1',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const contenedor = document.getElementById('recurso');
+                contenedor.innerHTML = '';
+
+                data.data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'recurso-item';
+                    div.innerHTML = `
+                        <strong>${item.name}</strong><br>
+                        Color: <span style="color:${item.color}; font-weight:bold;">${item.color}</span><br>
+                        Año: ${item.year}<br>
+                        Pantone: ${item.pantone_value}
+                    `;
+                    contenedor.appendChild(div);
+                });
+            })
+            .catch(error => {
+                document.getElementById('recurso').innerText = 'Error al cargar los recursos.';
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+
+</html>
