@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Crear Usuario</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    nav {
+      background-color: #f1f1f1;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+    nav a {
+      margin-right: 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input {
+      width: 200px;
+      padding: 5px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    #respuesta {
+      background-color: #e9ecef;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="lista-usuarios.html">Lista de usuarios</a>
+    <a href="detalle-usuario.html">Detalle de usuario</a>
+    <a href="crear-usuario.html">Crear usuario</a>
+    <a href="lista-recursos.html">Lista de recursos</a>
+    <a href="usuario-aleatorio.html">Usuario aleatorio</a>
+  </nav>
+
+  <h1>Crear Usuario</h1>
+
+  <form id="form-usuario">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" required>
+
+    <label for="trabajo">Trabajo:</label>
+    <input type="text" id="trabajo" required>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <div id="respuesta"></div>
+
+  <script>
+    document.getElementById('form-usuario').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombre').value;
+      const trabajo = document.getElementById('trabajo').value;
+
+      fetch('https://reqres.in/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'reqres-free-v1'
+        },
+        body: JSON.stringify({
+          name: nombre,
+          job: trabajo
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('respuesta').innerHTML = `
+            <p><strong>Usuario creado exitosamente:</strong></p>
+            <p><strong>ID:</strong> ${data.id}</p>
+            <p><strong>Nombre:</strong> ${data.name}</p>
+            <p><strong>Trabajo:</strong> ${data.job}</p>
+            <p><strong>Fecha de creación:</strong> ${data.createdAt}</p>
+          `;
+        })
+        .catch(err => {
+          document.getElementById('respuesta').innerText = 'Error al crear usuario.';
+          console.error(err);
+        });
+    });
+  </script>
+</body>
+</html>
