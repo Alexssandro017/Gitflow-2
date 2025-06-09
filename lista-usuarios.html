@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Usuarios</title>
+  <link rel="stylesheet" href="estilos.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      background-color: #f8f9fa;
+    }
+
+    nav {
+      background-color: #343a40;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+
+    nav a {
+      margin-right: 15px;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffc107;
+    }
+
+    #usuarios {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s forwards;
+    }
+
+    .card img {
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      margin: 5px 0;
+      color: #333;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .loader {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 50px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="lista-usuarios.html">Lista de usuarios</a>
+    <a href="detalle-usuario.html">Detalle de usuario</a>
+    <a href="crear-usuario.html">Crear usuario</a>
+    <a href="lista-recursos.html">Lista de recursos</a>
+    <a href="usuario-aleatorio.html">Usuario aleatorio</a>
+  </nav>
+
+  <div class="loader" id="loader">Cargando usuarios...</div>
+  <div id="usuarios"></div>
+
+  <script src="lista-usuarios.js"></script>
+</body>
+</html>
